@@ -41,13 +41,27 @@ const adviceNumbers = [
 ]
 
 buttonElement.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * advices.length);
-    const randomAdvice = advices[randomIndex]
-    adviceElement.textContent = randomAdvice
-})
+    fetch('https://api.adviceslip.com/advice')
+      .then(response => response.json())
+      .then(data => {
+        // Update the advice element with the new advice
+        const newAdvice = data.slip.advice;
+        adviceElement.textContent = newAdvice;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  });
 
 buttonElement.addEventListener('click', () => {
-    const randomNumber = Math.floor(Math.random() * adviceNumbers.length)
-    const randomNumbers = adviceNumbers[randomNumber]
-    adviceNumber.textContent = randomNumbers
+    fetch('https://api.adviceslip.com/advice')
+    .then(response => response.json())
+    .then(data => {
+      // Update the advice element with the new advice
+      const newNumberr = data.slip.id;
+      adviceNumber.textContent = newNumberr;
+    })
+    .catch(error => {
+      console.error(error);
+    });
 })
